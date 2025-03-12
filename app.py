@@ -1,10 +1,12 @@
-FROM python:3.8-slim-buster
+from flask import Flask 
+app = Flask(__name__)   #app instance
+ 
 
-WORKDIR /app
+#root of application 
+@app.route("/")       #app as a decorator to create each router or URL provided by application 
+def hello(): 
+    return "Hello, Welcome to Searce pvt ltd" 
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
-COPY . .
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+ 
+if __name__ == "__main__": 
+    app.run() 
