@@ -1,7 +1,7 @@
 # build docker image
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/system-450809/test-cicd-repo/python-image', '.' ]
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/system-450809/test-cicd-repo/python-image:v1', '.' ]
 # push docker image
 images:
 - 'us-central1-docker.pkg.dev/system-450809/test-cicd-repo/python-image'
