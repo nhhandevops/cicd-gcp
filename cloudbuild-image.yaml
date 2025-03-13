@@ -1,4 +1,3 @@
-# [START cloudbuild_quickstart_build]
 # build docker image
 steps:
 - name: 'gcr.io/cloud-builders/docker'
@@ -6,6 +5,4 @@ steps:
 # push docker image
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/python-repo/python-image'
-## [END cloudbuild_quickstart_build]
-options:
- logging: CLOUD_LOGGING_ONLY
+
