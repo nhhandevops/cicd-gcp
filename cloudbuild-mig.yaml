@@ -10,7 +10,7 @@ steps:
       --region=us-central1 \
       --network=default \
       --tags=allow-hc-and-proxy,allow-ssh \
-      --container-image=us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repos/python-image:latest
+      --container-image=us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image:latest
 
  # # create the managed instance groups
 - name: 'gcr.io/cloud-builders/gcloud'
