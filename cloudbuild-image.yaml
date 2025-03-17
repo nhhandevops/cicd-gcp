@@ -3,7 +3,28 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image:v1', '.' ]
 # push docker image
-images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 
+          'us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image']
+          
+# Create the new instance template
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: create-instance-template
+  args:
+    - compute
+    - instance-templates
+    - create-with-container
+    - cloud-build-instance-template-$_ENV-$SHORT_SHA
+    - --machine-type=e2-small
+    - --region=us-central1
+    - --tags=allow-hc-and-proxy,allow-ssh
+    - --container-image
+    - us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image:latest
+
+# Update the managed instance group
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args: ['-c','gcloud compute instance-groups managed rolling-action start-update cloudbuild-mig --version=template=cloud-build-instance-template-$_ENV-$SHORT_SHA --region=us-central1 --max-unavailable=0'] 
+
 options:
  logging: CLOUD_LOGGING_ONLY
