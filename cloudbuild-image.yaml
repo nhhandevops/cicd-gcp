@@ -6,8 +6,8 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 
           'us-central1-docker.pkg.dev/$PROJECT_ID/test-cicd-repo/python-image']
-          
 # Create the new instance template
+steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   id: create-instance-template
   args:
@@ -28,3 +28,6 @@ steps:
 
 options:
  logging: CLOUD_LOGGING_ONLY
+
+# Create the new instance template
+
