@@ -42,9 +42,9 @@ steps:
           --size=1 \
           --region=$REGION
       fi
-  env:
-  - 'MIG_NAME=$MIG_NAME'
-  - 'REGION=$REGION'
+  substitutions:
+    _MIG_NAME: cloudbuild-mig
+    _REGION: us-central1
   
 
 options:
