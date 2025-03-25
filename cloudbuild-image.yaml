@@ -43,8 +43,8 @@ steps:
           --region=$REGION
       fi
   env:
-  - 'MIG_NAME=cloudbuild-mig'
-  - 'REGION=us-central1'
+  - 'MIG_NAME=$MIG_NAME'
+  - 'REGION=$REGION'
   
 
 options:
