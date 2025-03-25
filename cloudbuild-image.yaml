@@ -27,8 +27,6 @@ steps:
   args:
     - '-c'
     - |
-      MIG_NAME="cloudbuild-mig"
-      REGION="us-central1"
       
       # Check if the MIG exists
       if gcloud compute instance-groups managed describe $MIG_NAME --region=$REGION > /dev/null 2>&1; then
@@ -44,6 +42,10 @@ steps:
           --size=1 \
           --region=$REGION
       fi
+  env:
+  - 'MIG_NAME=cloudbuild-mig'
+  - 'REGION=us-central1'
+  
 
 options:
   logging: CLOUD_LOGGING_ONLY
