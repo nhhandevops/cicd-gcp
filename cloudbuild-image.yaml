@@ -29,22 +29,22 @@ steps:
     - |
       
       # Check if the MIG exists
-      if gcloud compute instance-groups managed describe MIG_NAME --region=REGION > /dev/null 2>&1; then
+      if gcloud compute instance-groups managed describe ${_MIG_NAME} --region=${_REGION} > /dev/null 2>&1; then
         echo "Managed Instance Group exists, updating..."
-        gcloud compute instance-groups managed rolling-action start-update MIG_NAME \
+        gcloud compute instance-groups managed rolling-action start-update ${_MIG_NAME} \
           --version=template=cloud-build-instance-template-$_ENV-$SHORT_SHA \
-          --region=REGION \
+          --region=${_REGION} \
           --max-unavailable=0
       else
         echo "Managed Instance Group does not exist, creating a new one..."
-        gcloud compute instance-groups managed create MIG_NAME \
+        gcloud compute instance-groups managed create ${_MIG_NAME} \
           --template=cloud-build-instance-template-$_ENV-$SHORT_SHA \
           --size=1 \
-          --region=REGION
+          --region=${_REGION}
       fi
   env:
-  - 'MIG_NAME=${_MIG_NAME}'
-  - 'REGION=${_REGION}'
+  - 'MIG_NAME=$_MIG_NAME'
+  - 'REGION=$_REGION'
   
 
 options:
